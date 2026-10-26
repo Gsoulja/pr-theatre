@@ -1,0 +1,180 @@
+{
+  "name": "theatre",
+  "title": "The puppet theatre",
+  "kinds": {
+    "feature_added": {
+      "title": "A new puppet joins the cast",
+      "prop": "new-puppet",
+      "move": "join-cast",
+      "narration": "A new puppet walks on stage. {summary}",
+      "colour": "#4f9d69"
+    },
+    "behaviour_changed": {
+      "title": "The script was rewritten",
+      "prop": "script",
+      "move": "rewrite-script",
+      "narration": "The script turns to a new page. {summary}",
+      "colour": "#5b7fbf"
+    },
+    "code_removed": {
+      "title": "A puppet leaves the show",
+      "prop": "empty-hook",
+      "move": "leave-stage",
+      "narration": "One hook is empty now. {summary}",
+      "colour": "#8a8a8a"
+    },
+    "secret_exposed": {
+      "title": "The stage key hangs outside",
+      "prop": "key",
+      "move": "key-outside",
+      "narration": "The key to the stage door is hanging outside, where anyone can take it. {summary}",
+      "colour": "#d64545",
+      "fix": {
+        "move": "lock-key",
+        "narration": "With the key kept inside, only the crew can open the door."
+      }
+    },
+    "missing_safety_limit": {
+      "title": "A string with no knot",
+      "prop": "loose-string",
+      "move": "string-unspools",
+      "narration": "This string has no knot at the end, so nothing stops it running out. {summary}",
+      "colour": "#d64545",
+      "fix": {
+        "move": "tie-knot",
+        "narration": "A knot at the end means the string can only go so far."
+      }
+    },
+    "unit_mismatch": {
+      "title": "Two rulers that disagree",
+      "prop": "rulers",
+      "move": "rulers-disagree",
+      "narration": "Two stagehands measure with different rulers. {summary}",
+      "colour": "#e08a2e",
+      "fix": {
+        "move": "rulers-agree",
+        "narration": "Now everyone measures with the same ruler."
+      }
+    },
+    "error_hidden": {
+      "title": "The puppet bows with a snapped string",
+      "prop": "snapped-puppet",
+      "move": "bow-snapped",
+      "narration": "The puppet takes a bow, but its string has snapped. {summary}",
+      "colour": "#d64545",
+      "fix": {
+        "move": "speak-up",
+        "narration": "Now a snapped string stops the show, so someone can mend it."
+      }
+    },
+    "no_timeout": {
+      "title": "Nobody calls time",
+      "prop": "hourglass",
+      "move": "sand-forever",
+      "narration": "The hourglass keeps turning and nobody calls time. {summary}",
+      "colour": "#e08a2e",
+      "fix": {
+        "move": "call-time",
+        "narration": "Now the stage manager calls time if the scene runs too long."
+      }
+    },
+    "no_human_approval": {
+      "title": "The director's chair is empty",
+      "prop": "empty-chair",
+      "move": "empty-chair",
+      "narration": "The director's chair is empty: nobody says yes before the curtain rises. {summary}",
+      "colour": "#e08a2e",
+      "fix": {
+        "move": "director-nods",
+        "narration": "Now the director nods before anything moves."
+      }
+    },
+    "tests_added": {
+      "title": "The cast rehearsed",
+      "prop": "rehearsal",
+      "move": "rehearse",
+      "narration": "The cast rehearsed this before opening night. {summary}",
+      "colour": "#4f9d69"
+    },
+    "tests_missing": {
+      "title": "No rehearsal",
+      "prop": "no-rehearsal",
+      "move": "skip-rehearsal",
+      "narration": "This scene goes on without a single rehearsal. {summary}",
+      "colour": "#e08a2e",
+      "fix": {
+        "move": "rehearse-now",
+        "narration": "With a rehearsal, mistakes show up before the audience arrives."
+      }
+    },
+    "dependency_added": {
+      "title": "A crate from another theatre",
+      "prop": "crate",
+      "move": "crate-arrives",
+      "narration": "A crate of props arrives from another theatre. {summary}",
+      "colour": "#5b7fbf"
+    }
+  },
+  "props": {
+    "new-puppet": {
+      "asset": "assets/new-puppet.svg",
+      "alt": "A smiling wooden puppet on strings",
+      "prompt": "a cheerful wooden marionette on strings, flat illustration, warm stage light"
+    },
+    "script": {
+      "asset": "assets/script.svg",
+      "alt": "An open script with a page turning",
+      "prompt": "an open theatre script with a page turning, flat illustration"
+    },
+    "empty-hook": {
+      "asset": "assets/empty-hook.svg",
+      "alt": "An empty hook where a puppet used to hang",
+      "prompt": "an empty brass hook on a puppet rail, flat illustration"
+    },
+    "key": {
+      "asset": "assets/key.svg",
+      "alt": "A brass key hanging on a nail outside the stage door",
+      "prompt": "a brass key hanging on a nail outside a theatre stage door, flat illustration"
+    },
+    "loose-string": {
+      "asset": "assets/loose-string.svg",
+      "alt": "A puppet string running off its spool with no knot at the end",
+      "prompt": "a puppet string unspooling with no knot at the end, flat illustration"
+    },
+    "rulers": {
+      "asset": "assets/rulers.svg",
+      "alt": "Two rulers side by side with marks that do not line up",
+      "prompt": "two wooden rulers with mismatched markings, flat illustration"
+    },
+    "snapped-puppet": {
+      "asset": "assets/snapped-puppet.svg",
+      "alt": "A puppet bowing while one of its strings has snapped",
+      "prompt": "a marionette bowing with one snapped string, flat illustration"
+    },
+    "hourglass": {
+      "asset": "assets/hourglass.svg",
+      "alt": "An hourglass with sand running",
+      "prompt": "an hourglass on a stage, sand running, flat illustration"
+    },
+    "empty-chair": {
+      "asset": "assets/empty-chair.svg",
+      "alt": "An empty director's chair",
+      "prompt": "an empty canvas director's chair under a spotlight, flat illustration"
+    },
+    "rehearsal": {
+      "asset": "assets/rehearsal.svg",
+      "alt": "A clipboard with every line ticked",
+      "prompt": "a rehearsal clipboard with ticked checkboxes, flat illustration"
+    },
+    "no-rehearsal": {
+      "asset": "assets/no-rehearsal.svg",
+      "alt": "A clipboard with empty boxes",
+      "prompt": "a rehearsal clipboard with empty checkboxes, flat illustration"
+    },
+    "crate": {
+      "asset": "assets/crate.svg",
+      "alt": "A wooden crate stamped with another theatre's name",
+      "prompt": "a wooden shipping crate of theatre props, flat illustration"
+    }
+  }
+}
