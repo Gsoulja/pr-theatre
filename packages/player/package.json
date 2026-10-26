@@ -1,0 +1,21 @@
+{
+  "name": "@pr-theatre/player",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@pr-theatre/adapters": "workspace:*",
+    "@pr-theatre/engine": "workspace:*",
+    "@pr-theatre/renderer-svg": "workspace:*",
+    "@pr-theatre/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}
