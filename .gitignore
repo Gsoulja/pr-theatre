@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+# Generated per run by the plugin and by `pnpm demo`
+.pr-theatre/
+packages/player/public/shows/
+# Output of `cli publish` (see README)
+site/
