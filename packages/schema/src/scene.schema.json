@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pr-theatre.dev/schema/scene.schema.json",
+  "title": "PR Theatre scenes",
+  "description": "The story told from facts. Every scene names the facts it is built on.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "scenes"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "prNumber", "title", "theme", "summary"],
+      "properties": {
+        "repo": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "prNumber": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "theme": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "summary": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/scene" }
+    }
+  },
+  "$defs": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "factIds", "title", "caption", "prop", "move", "severity"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^s-[0-9]+$" },
+        "factIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^f-[0-9]+$" }
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "caption": { "type": "string", "minLength": 1 },
+        "prop": { "$ref": "#/$defs/name" },
+        "move": { "$ref": "#/$defs/name" },
+        "severity": { "enum": ["ok", "check", "danger"] },
+        "fix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["move", "caption"],
+          "properties": {
+            "move": { "$ref": "#/$defs/name" },
+            "caption": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}

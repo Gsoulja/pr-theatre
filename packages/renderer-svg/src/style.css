@@ -1,0 +1,194 @@
+/* The 2D theatre. Class names come from stage.ts; colours that change per scene are set by the renderer. */
+.pt-theatre {
+  --pt-severity: #6b6b6b;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.pt-theatre[data-severity="ok"] { --pt-severity: #2f6b45; }
+.pt-theatre[data-severity="check"] { --pt-severity: #8f5310; }
+.pt-theatre[data-severity="danger"] { --pt-severity: #a52a2a; }
+
+/* The 16:9 screen: SVG stage underneath, real text on top. Text sizes follow the screen's width. */
+.pt-screen {
+  position: relative;
+  container-type: inline-size;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #1d1410;
+}
+.pt-stage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pt-backdrop { fill: #e9dcc3; }
+.pt-floor { fill: #8b5e3c; }
+.pt-beam { fill: #fffaf0; opacity: 0.5; }
+.pt-curtain path { fill: #8e1b26; }
+.pt-curtain .pt-curtain-fold {
+  fill: none;
+  stroke: #5e0f17;
+  stroke-width: 10;
+  opacity: 0.45;
+}
+.pt-valance { fill: #6d121b; }
+.pt-spotlight { opacity: 0.6; }
+
+.pt-prop { cursor: pointer; }
+.pt-prop:focus { outline: none; }
+.pt-focus-ring {
+  fill: none;
+  stroke: none;
+  stroke-width: 4;
+  stroke-dasharray: 12 8;
+}
+.pt-prop:hover .pt-focus-ring { stroke: rgb(42 26 16 / 0.3); }
+.pt-prop:focus-visible .pt-focus-ring { stroke: #2a1a10; }
+
+.pt-stamp rect {
+  fill: rgb(251 243 228 / 0.92);
+  stroke: #2f6b45;
+  stroke-width: 6;
+}
+.pt-stamp text {
+  fill: #2f6b45;
+  font: 700 34px Georgia, "Times New Roman", serif;
+  letter-spacing: 0.12em;
+}
+
+.pt-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* The headline sits on the valance like a theatre marquee. */
+.pt-headline {
+  position: absolute;
+  top: 1.6%;
+  left: 12%;
+  right: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4cqw;
+  color: #fbf3e4;
+}
+.pt-badge {
+  flex: none;
+  padding: 0.35cqw 1.1cqw;
+  border-radius: 999px;
+  background: var(--pt-severity);
+  box-shadow: 0 0 0 0.25cqw #fbf3e4;
+  color: #fff;
+  font: 700 clamp(9px, 1.35cqw, 15px) / 1.3 system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pt-badge:empty { display: none; }
+.pt-title {
+  margin: 0;
+  overflow: hidden;
+  font: 700 clamp(13px, 2.6cqw, 30px) / 1.15 Georgia, "Times New Roman", serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The code close-up. */
+.pt-code-card {
+  position: absolute;
+  top: 17%;
+  right: 10%;
+  width: 32%;
+  max-height: 64%;
+  padding: 1cqw 0 1.1cqw;
+  overflow: hidden;
+  border: 0.25cqw solid #2f2118;
+  border-radius: 1.2cqw;
+  background: #1c1612;
+  box-shadow: 0 1.2cqw 2.4cqw rgb(0 0 0 / 0.35);
+  color: #f4ead8;
+  opacity: 0;
+}
+.pt-code-card[hidden] { display: none; }
+.pt-code-label {
+  padding: 0 1.4cqw 0.4cqw;
+  color: #f2c14e;
+  font: 700 clamp(8px, 1.15cqw, 13px) / 1.3 system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pt-code-file {
+  padding: 0 1.4cqw 0.8cqw;
+  overflow: hidden;
+  border-bottom: 1px solid #4a392d;
+  color: #c8b89f;
+  font: clamp(8px, 1.15cqw, 13px) / 1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pt-code-lines { padding-top: 0.6cqw; }
+.pt-code-line {
+  display: flex;
+  gap: 1cqw;
+  padding: 0.1cqw 1.4cqw;
+  background-image: linear-gradient(color-mix(in srgb, var(--pt-severity) 45%, transparent), color-mix(in srgb, var(--pt-severity) 45%, transparent));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  font: clamp(8px, 1.2cqw, 14px) / 1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+.pt-code-number {
+  flex: none;
+  width: 3.2ch;
+  color: #8f7f6a;
+  text-align: right;
+}
+.pt-code-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pt-code-more {
+  padding: 0.6cqw 1.4cqw 0;
+  color: #c8b89f;
+  font: clamp(8px, 1.05cqw, 12px) / 1.3 system-ui, sans-serif;
+}
+.pt-code-more:empty { display: none; }
+
+/* The still frame plus caption must tell the story alone, so the words sit outside the animation. */
+.pt-words {
+  min-height: 7.5rem;
+  padding: 16px 20px;
+  border-left: 8px solid var(--pt-severity);
+  border-radius: 12px;
+  background: #fbf3e4;
+  color: #3a2a1f;
+}
+.pt-caption {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+.pt-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Phones: the title may take two lines; severity still shows on the caption's edge and in the scene strip. */
+@container (max-width: 520px) {
+  .pt-headline { top: 0.6%; }
+  .pt-badge { display: none; }
+  .pt-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
+  }
+}

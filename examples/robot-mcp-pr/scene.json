@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "repo": "example/robot-mcp",
+    "prNumber": 42,
+    "title": "feat: add move_arm tool",
+    "theme": "theatre",
+    "summary": "4 things need fixing and 3 things need a second look."
+  },
+  "scenes": [
+    {
+      "id": "s-1",
+      "factIds": [
+        "f-1"
+      ],
+      "title": "A new puppet joins the cast",
+      "caption": "A new puppet walks on stage. The AI assistant gets a new command, move_arm, that moves the robot arm to a position.",
+      "prop": "new-puppet",
+      "move": "join-cast",
+      "severity": "ok"
+    },
+    {
+      "id": "s-2",
+      "factIds": [
+        "f-9"
+      ],
+      "title": "A crate from another theatre",
+      "caption": "A crate of props arrives from another theatre. The project now relies on an outside library, axios, to talk to the arm.",
+      "prop": "crate",
+      "move": "crate-arrives",
+      "severity": "ok"
+    },
+    {
+      "id": "s-3",
+      "factIds": [
+        "f-2"
+      ],
+      "title": "The stage key hangs outside",
+      "caption": "The key to the stage door is hanging outside, where anyone can take it. The password for the arm controller is written straight into the code, so anyone who can read the code can control the arm.",
+      "prop": "key",
+      "move": "key-outside",
+      "severity": "danger",
+      "fix": {
+        "move": "lock-key",
+        "caption": "With the key kept inside, only the crew can open the door."
+      }
+    },
+    {
+      "id": "s-4",
+      "factIds": [
+        "f-3"
+      ],
+      "title": "A string with no knot",
+      "caption": "This string has no knot at the end, so nothing stops it running out. The speed can be any number, so nothing stops a request to swing the arm dangerously fast.",
+      "prop": "loose-string",
+      "move": "string-unspools",
+      "severity": "danger",
+      "fix": {
+        "move": "tie-knot",
+        "caption": "A knot at the end means the string can only go so far."
+      }
+    },
+    {
+      "id": "s-5",
+      "factIds": [
+        "f-4"
+      ],
+      "title": "Two rulers that disagree",
+      "caption": "Two stagehands measure with different rulers. The command says it takes millimetres, but the controller expects centimetres, so the arm would move ten times further than asked.",
+      "prop": "rulers",
+      "move": "rulers-disagree",
+      "severity": "danger",
+      "fix": {
+        "move": "rulers-agree",
+        "caption": "Now everyone measures with the same ruler."
+      }
+    },
+    {
+      "id": "s-6",
+      "factIds": [
+        "f-5"
+      ],
+      "title": "The puppet bows with a snapped string",
+      "caption": "The puppet takes a bow, but its string has snapped. If the arm fails to move, the error is thrown away and the assistant is still told the move worked.",
+      "prop": "snapped-puppet",
+      "move": "bow-snapped",
+      "severity": "danger",
+      "fix": {
+        "move": "speak-up",
+        "caption": "Now a snapped string stops the show, so someone can mend it."
+      }
+    },
+    {
+      "id": "s-7",
+      "factIds": [
+        "f-6"
+      ],
+      "title": "Nobody calls time",
+      "caption": "The hourglass keeps turning and nobody calls time. The call to the arm controller has no time limit, so a stuck controller makes the command wait forever.",
+      "prop": "hourglass",
+      "move": "sand-forever",
+      "severity": "check",
+      "fix": {
+        "move": "call-time",
+        "caption": "Now the stage manager calls time if the scene runs too long."
+      }
+    },
+    {
+      "id": "s-8",
+      "factIds": [
+        "f-7"
+      ],
+      "title": "The director's chair is empty",
+      "caption": "The director's chair is empty: nobody says yes before the curtain rises. The arm moves as soon as the AI asks; no person is asked to confirm first.",
+      "prop": "empty-chair",
+      "move": "empty-chair",
+      "severity": "check",
+      "fix": {
+        "move": "director-nods",
+        "caption": "Now the director nods before anything moves."
+      }
+    },
+    {
+      "id": "s-9",
+      "factIds": [
+        "f-8"
+      ],
+      "title": "No rehearsal",
+      "caption": "This scene goes on without a single rehearsal. No tests were added for the new move command.",
+      "prop": "no-rehearsal",
+      "move": "skip-rehearsal",
+      "severity": "check",
+      "fix": {
+        "move": "rehearse-now",
+        "caption": "With a rehearsal, mistakes show up before the audience arrives."
+      }
+    }
+  ]
+}

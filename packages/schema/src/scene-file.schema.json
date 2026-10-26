@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pr-theatre.dev/schema/scene-file.schema.json",
+  "title": "PR Theatre show bundle",
+  "description": "Everything the player needs in one file: the story, the facts behind it, the theme and the real code lines.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "scene", "facts", "theme", "snippets"],
+  "properties": {
+    "version": { "const": 1 },
+    "scene": { "$ref": "scene.schema.json" },
+    "facts": { "$ref": "facts.schema.json" },
+    "theme": { "$ref": "theme.schema.json" },
+    "snippets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["factId", "evidenceIndex", "lines"],
+        "properties": {
+          "factId": { "type": "string", "pattern": "^f-[0-9]+$" },
+          "evidenceIndex": { "type": "integer", "minimum": 0 },
+          "lines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["number", "text"],
+              "properties": {
+                "number": { "type": "integer", "minimum": 1 },
+                "text": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

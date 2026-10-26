@@ -1,0 +1,72 @@
+diff --git a/package.json b/package.json
+index 3043b0f..95f860e 100644
+--- a/package.json
++++ b/package.json
+@@ -4,6 +4,7 @@
+   "type": "module",
+   "dependencies": {
+     "@modelcontextprotocol/sdk": "^1.0.0",
++    "axios": "^1.7.0",
+     "zod": "^3.23.0"
+   }
+ }
+diff --git a/src/robotClient.ts b/src/robotClient.ts
+new file mode 100644
+index 0000000..e21224e
+--- /dev/null
++++ b/src/robotClient.ts
+@@ -0,0 +1,13 @@
++import axios from "axios";
++
++// Token for the arm controller.
++const ROBOT_TOKEN = "PLACEHOLDER-not-a-real-token";
++
++const client = axios.create({
++  baseURL: "http://arm-controller.local",
++  headers: { Authorization: `Bearer ${ROBOT_TOKEN}` },
++});
++
++export async function sendMove(xCm: number, yCm: number, speed: number) {
++  await client.post("/move", { x: xCm, y: yCm, speed });
++}
+diff --git a/src/server.ts b/src/server.ts
+index 78e2121..d1e2f27 100644
+--- a/src/server.ts
++++ b/src/server.ts
+@@ -1,9 +1,11 @@
+ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+ import { registerStatusTool } from "./tools/status.js";
++import { registerMoveArmTool } from "./tools/moveArm.js";
+ 
+ const server = new McpServer({ name: "robot-mcp", version: "0.1.0" });
+ 
+ registerStatusTool(server);
++registerMoveArmTool(server);
+ 
+ await server.connect(new StdioServerTransport());
+diff --git a/src/tools/moveArm.ts b/src/tools/moveArm.ts
+new file mode 100644
+index 0000000..14c038d
+--- /dev/null
++++ b/src/tools/moveArm.ts
+@@ -0,0 +1,19 @@
++import { z } from "zod";
++import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
++import { sendMove } from "../robotClient.js";
++
++export function registerMoveArmTool(server: McpServer) {
++  server.tool(
++    "move_arm",
++    "Move the robot arm to a position given in millimetres.",
++    { x: z.number(), y: z.number(), speed: z.number() },
++    async ({ x, y, speed }) => {
++      try {
++        await sendMove(x, y, speed);
++      } catch (err) {
++        // ignore controller errors for now
++      }
++      return { content: [{ type: "text", text: "Arm moved successfully." }] };
++    },
++  );
++}

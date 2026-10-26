@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pr-theatre.dev/schema/facts.schema.json",
+  "title": "PR Theatre facts",
+  "description": "Plain, literal facts about a pull request. Every fact points to real lines.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "facts"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "prNumber", "title", "headCommit"],
+      "properties": {
+        "repo": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "prNumber": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "headCommit": { "$ref": "#/$defs/commit" }
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/fact" }
+    }
+  },
+  "$defs": {
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+    "severity": { "enum": ["ok", "check", "danger"] },
+    "factKind": {
+      "enum": [
+        "feature_added",
+        "behaviour_changed",
+        "code_removed",
+        "secret_exposed",
+        "missing_safety_limit",
+        "unit_mismatch",
+        "error_hidden",
+        "no_timeout",
+        "no_human_approval",
+        "tests_added",
+        "tests_missing",
+        "dependency_added"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "startLine", "endLine", "commit"],
+      "properties": {
+        "file": { "type": "string", "minLength": 1 },
+        "startLine": { "type": "integer", "minimum": 1 },
+        "endLine": { "type": "integer", "minimum": 1 },
+        "commit": { "$ref": "#/$defs/commit" }
+      }
+    },
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "summary", "severity", "evidence"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^f-[0-9]+$" },
+        "kind": { "$ref": "#/$defs/factKind" },
+        "summary": { "type": "string", "minLength": 1 },
+        "severity": { "$ref": "#/$defs/severity" },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } }
+      }
+    }
+  }
+}

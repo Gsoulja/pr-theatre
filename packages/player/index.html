@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>PR Theatre</title>
+    <script type="module" src="./src/composition-root.ts"></script>
+  </head>
+  <body>
+    <header id="playbill" class="pt-playbill">
+      <p class="pt-playbill-pr">PR Theatre</p>
+      <h1 class="pt-playbill-title">The show is about to start…</h1>
+    </header>
+    <main class="pt-house">
+      <p id="player-error" class="pt-error" role="alert" hidden></p>
+      <div id="stage" class="pt-stage-slot"></div>
+      <div id="controls" class="pt-controls"></div>
+    </main>
+    <dialog id="code-panel" class="pt-code-panel"></dialog>
+  </body>
+</html>

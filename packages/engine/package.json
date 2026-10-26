@@ -1,0 +1,15 @@
+{
+  "name": "@pr-theatre/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@pr-theatre/schema": "workspace:*"
+  }
+}
