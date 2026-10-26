@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pr-theatre.dev/schema/theme.schema.json",
+  "title": "PR Theatre theme",
+  "description": "A metaphor as data: what each fact kind looks like, how it moves and how it is told.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "title", "kinds", "props"],
+  "properties": {
+    "name": { "$ref": "#/$defs/name" },
+    "title": { "type": "string", "minLength": 1 },
+    "kinds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feature_added",
+        "behaviour_changed",
+        "code_removed",
+        "secret_exposed",
+        "missing_safety_limit",
+        "unit_mismatch",
+        "error_hidden",
+        "no_timeout",
+        "no_human_approval",
+        "tests_added",
+        "tests_missing",
+        "dependency_added"
+      ],
+      "properties": {
+        "feature_added": { "$ref": "#/$defs/kindLook" },
+        "behaviour_changed": { "$ref": "#/$defs/kindLook" },
+        "code_removed": { "$ref": "#/$defs/kindLook" },
+        "secret_exposed": { "$ref": "#/$defs/kindLook" },
+        "missing_safety_limit": { "$ref": "#/$defs/kindLook" },
+        "unit_mismatch": { "$ref": "#/$defs/kindLook" },
+        "error_hidden": { "$ref": "#/$defs/kindLook" },
+        "no_timeout": { "$ref": "#/$defs/kindLook" },
+        "no_human_approval": { "$ref": "#/$defs/kindLook" },
+        "tests_added": { "$ref": "#/$defs/kindLook" },
+        "tests_missing": { "$ref": "#/$defs/kindLook" },
+        "dependency_added": { "$ref": "#/$defs/kindLook" }
+      }
+    },
+    "props": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/name" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset", "alt", "prompt"],
+        "properties": {
+          "asset": { "type": "string", "pattern": "^assets/[a-z0-9-]+\\.(svg|png|webp)$" },
+          "alt": { "type": "string", "minLength": 1 },
+          "prompt": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "colour": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+    "kindLook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "prop", "move", "narration", "colour"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "prop": { "$ref": "#/$defs/name" },
+        "move": { "$ref": "#/$defs/name" },
+        "narration": { "type": "string", "pattern": "\\{summary\\}" },
+        "colour": { "$ref": "#/$defs/colour" },
+        "fix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["move", "narration"],
+          "properties": {
+            "move": { "$ref": "#/$defs/name" },
+            "narration": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  }
+}
